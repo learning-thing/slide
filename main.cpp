@@ -15,7 +15,7 @@ class posi {
     float recposx, recposy = 0;
     bool gas;
     int radius = 40;
-
+    int framecounter = 0;
 
     void infiniteBorder() {
         if (xPos > GetScreenWidth()) {
@@ -63,6 +63,7 @@ class posi {
 
     void update() {
         float framtime = GetFrameTime();
+        framecounter+=1;
         
         xPos += xSpeed*framtime*60;
         yPos += ySpeed*framtime*60;
@@ -138,6 +139,9 @@ class posi {
 
 posi pos;
 
+int tposx = GetRandomValue(10, 20)*3;
+int tposy = GetRandomValue(10, 20)*3;
+
 
 int main() {
     InitWindow(1920, 1200, "Sliding");
@@ -156,14 +160,18 @@ int main() {
 
             DrawCircle(pos.xPos, pos.yPos, pos.radius+10, WHITE);
             if (pos.gas) {
-                DrawCircle(pos.xPos+cos(pos.rotation)*pos.radius, pos.yPos+sin(pos.rotation)*pos. radius, pos.radius, RED);
+                DrawCircle(pos.xPos+sin(pos.rotation)*pos.radius, pos.yPos+cos(pos.rotation)*pos. radius, pos.radius, RED);
             } else {
-                DrawCircle(pos.xPos+cos(pos.rotation)*pos.radius, pos.yPos+sin(pos.rotation)*pos.radius, pos.radius, WHITE);
+                DrawCircle(pos.xPos+sin(pos.rotation)*pos.radius, pos.yPos+cos(pos.rotation)*pos.radius, pos.radius, WHITE);
             }
+
+            DrawCircle(tposx, tposy, 20, WHITE);
+
             pos.update();
             //pos.infiniteBorder();
             pos.bounceBorder();
             pos.turnControls();
+
 
         EndDrawing();
     }

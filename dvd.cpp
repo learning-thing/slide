@@ -18,11 +18,17 @@ void updatePhysics() {
     win_width = GetScreenWidth();
     win_height = GetScreenHeight();
 
+    if (posx < GetScreenWidth()/2) {
+        xSpeed+=5;
+    } else {
+        xSpeed-=5;
+    }
+
 
     if(IsKeyDown(KEY_A)) {
         posx= 10;
         posy = 10;
-        xSpeed = 100;
+        xSpeed += 100;
     }
 
     if (posx > win_width) {
@@ -64,13 +70,14 @@ int main() {
     //SetTargetFPS(60);
     win_width = GetScreenWidth();
     win_height = GetScreenHeight();
-    while(!WindowShouldClose()) {
+    while(true) {
         updatePhysics();
         BeginDrawing();
             DrawRectangle(0, 0, win_width, win_height, ColorAlpha(BLACK, 0.4));
             DrawFPS(20, 20);
             //ClearBackground(BLACK);
             DrawText("Dunya", posx, posy-80, 100, RAYWHITE);
+            DrawCircle(10, GetScreenHeight()/2+((xSpeed+ySpeed)/2), 10, RAYWHITE);
             DrawText("Ace", GetScreenWidth()-posx, posy-80, 100, RAYWHITE);
         EndDrawing();
     }

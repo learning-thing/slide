@@ -33,7 +33,7 @@ int main() {
     posx = GetScreenWidth()/2;
     cirle_thing = GetScreenHeight()/5;
     //SetTargetFPS(120);
-    while(!WindowShouldClose()) {
+    while(true) {
         frametime = GetFrameTime();
 
         if (IsKeyDown(KEY_E)) {
@@ -62,6 +62,8 @@ int main() {
         if (IsKeyDown(KEY_LEFT)) {
             rota -= speed*0.01;
         }
+
+        
 
         if (IsKeyPressed(KEY_SPACE)) {
             if (play) {
@@ -114,12 +116,12 @@ int main() {
                     DrawLine(
                     posx+dispo*sin(offset), posy+dispo*cos(offset),
                     posx+dispo*sin(offset)/2, posy+dispo*cos(offset)/2,
-                    ColorAlpha(BLUE, 0.5-sin(offset)) );
+                    ColorAlpha(BLUE, 0.5-sin(offset)) );    
             
                     DrawLine(
                     posx, posy,
-                    posx+dispo*sin(offset)/2, posy+dispo*cos(offset)/2,
-                    ColorAlpha(RED, 0.5+sin(offset)) );
+                    posx+dispo*sin(offset)/2*i, posy+dispo*cos(offset)/2*i,
+                    RED);
                     dispob = dispo;
                     offsetb = offset;
                 } else {
