@@ -119,9 +119,7 @@ class Movement {
             }
         }
 
-        
-        
-        
+
         rotation = -(float)GetMouseX()/350;
         uprotation = (float)GetMouseY()/350;
         //SetMousePosition();
@@ -207,9 +205,28 @@ class Enemy {
 
     void think(float frametime, Vector3 targetPosition) {
         if (posx < targetPosition.x) {
-            xSpeed+= 10/(fabs(targetPosition.x)-fabs(posx));
+            if (xSpeed < 0) {
+                xSpeed = 0;
+            }
+            xSpeed+= 1;
         } else {
+            if (xSpeed > 0) {
+                xSpeed = 0;
+            }
             xSpeed-= 1;
+
+        }
+
+        if (posz < targetPosition.z) {
+            if (zSpeed < 0) {
+                zSpeed = 0;
+            }
+            zSpeed+= 1;
+        } else {
+            if (zSpeed > 0) {
+                zSpeed = 0;
+            }
+            zSpeed-= 1;
 
         }
 

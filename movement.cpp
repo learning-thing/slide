@@ -29,21 +29,27 @@ float OriginDistance(Vector3 pos) {
 
 int main() {
     InitWindow(1920, 1200, "Smooth fps movement");
+    InitAudioDevice();
     ToggleFullscreen();
     //SetWindowState(FLAG_VSYNC_HINT);
     SetTargetFPS(60);
 
     DisableCursor();
 
+    Sound schweine = LoadSound("res/schweine.mp3");
     Movement movement;
     Camera3D camera = { 0 };
     Projectile bullets[maxbullets];
-    Texture2D bill = LoadTexture("../res/heart.png");
+    //Texture2D bill = LoadTexture("../res/heart.png");
+    Texture2D Scary = LoadTexture("res/scary.png");
     Vector3 billUp = { 0.0f, 1.0f, 0.0f };
     Enemy HerrWiescher;
     Enemy KunstMann;
 
     KunstMann.spawn();
+    movement.spawn(25.0f, 5.0f, 5.0f);
+
+    PlaySound(schweine);
 
     camera.position = (Vector3){ 0.0f, 2.0f,  0.0f};    // Camera position
     camera.target = (Vector3){ 0.0f, 0.0f, 0.0f };      // Camera looking at point
@@ -51,7 +57,6 @@ int main() {
     camera.fovy = 60.0f;                                // Camera field-of-view Y
     camera.projection = CAMERA_PERSPECTIVE;    
 
-    movement.spawn(25.0f, 5.0f, 5.0f);
 
     
 
@@ -87,7 +92,6 @@ int main() {
             movement.posz = 0;
         }
 
-    
 
         totalSpeed = fabs(movement.xSpeed)+fabs(movement.zSpeed);
         //std::clog << "uprotation: " << movement.uprotation << "\n" << "\n\nMouse pos: " << GetMouseY();
@@ -98,13 +102,11 @@ int main() {
             ClearBackground(BLACK);
 
                 DrawGrid(100, 100);
-                DrawCube(KunstMann.getPos(), 10, 50, 10, WHITE);
+                //DrawCube(KunstMann.getPos(), 10, 50, 10, WHITE);
+                DrawBillboard(camera, Scary, KunstMann.getPos(), 22.0f, WHITE);
 
 
                 //Draw enemies
-                
-                
-
 
                 //Draw projecrtile and updat ebullets
                 for (int i = 0; i < maxbullets; i++) {
